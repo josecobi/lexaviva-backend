@@ -10,15 +10,19 @@ const wordSchema = new Schema({
     },
     imgUrl: {
       type: String,
-      required: true,
+    },
+    attribution: {
+      type: String,
     },
     topic: {
-      topicName: {
         type: String,
         required: true,
-      },
     },
   });
 
+  
   const Word = model('Word', wordSchema);
+
+  Word.schema.index({ topic: 1 });
+
   export default Word
