@@ -65,4 +65,17 @@ router
         }
     })
 
+    router
+    .route("/insertMany")
+    .post( async (req, res, next) => {
+        try{
+            const data = req.body;
+            await Word.insertMany(data);
+            res.json("Words inserted");
+        }
+        catch(err){
+            next(err);
+        }
+    })
+
 export default router;
