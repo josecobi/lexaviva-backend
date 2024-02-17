@@ -37,5 +37,16 @@ router
             next(err);          
         }
     })
-    
+
+    // Update term by ID
+    .put( async (req, res, next) => {
+        try{
+    await Word.findByIdAndUpdate(req.params.id);
+    res.json("Term updated");
+        }
+        catch(err){
+            next(err);          
+        }
+    })
+
 export default router;
