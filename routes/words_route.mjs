@@ -39,6 +39,8 @@ router
     })
 
     // Update term by ID
+    router
+    .route("/update/:id")
     .put( async (req, res, next) => {
         try{
     await Word.findByIdAndUpdate(req.params.id);
@@ -46,6 +48,20 @@ router
         }
         catch(err){
             next(err);          
+        }
+    })
+
+    router
+    .route("/deleteAllByTopic/:topic")
+    .delete( async (req, res, next) => {
+        try{
+            let wordsToDelete = await Word.deleteMany({topic: req.params.topic});
+            // If no words are deleted, send a 404 status code and a message
+            (wordsToDelete.deletedCount === 0) ? res.status(404).send(`Words with topic "${req.params.topic}" not found.`) :
+            res.status(200).send(`Words with topic "${req.params.topic}" deleted successfully.`);
+        }
+        catch(err){
+            next(err);
         }
     })
 
