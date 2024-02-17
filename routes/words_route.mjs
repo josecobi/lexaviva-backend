@@ -13,5 +13,16 @@ router
             next(err);     
         }
     })
+    .post( async (req, res, next) => {
+        try{
+            console.log(req.body)
+            const word = new Word(req.body); 
+            await word.save();
+            res.json(word);
+    }
+        catch(err){
+            next(err);     
+        }
+    });
 
 export default router;
