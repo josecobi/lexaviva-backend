@@ -24,5 +24,18 @@ router
             next(err);     
         }
     });
+    router
 
+
+    .route("/delete/:id")
+    .delete( async (req, res, next) => {
+        try{
+            await Word.findByIdAndDelete(req.params.id);
+            res.json("Word deleted");
+        }
+        catch(err){
+            next(err);          
+        }
+    })
+    
 export default router;
