@@ -5,6 +5,8 @@ import mongoose from "mongoose";
 import wordRouter from './routes/words_route.mjs';
 import error from "./utilities/error.mjs";
 import insertExampleData from './utilities/insert_example_data.mjs';
+import cors from 'cors';
+
 
 
 
@@ -17,6 +19,10 @@ db.on("error", console.error.bind(console, "connection error:"));
 db.on("open", () => {
     console.log("Database connected");
 });
+
+// Enable All CORS Requests
+app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use("/words", wordRouter);
 

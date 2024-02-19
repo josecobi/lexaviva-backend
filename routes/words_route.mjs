@@ -24,9 +24,8 @@ router
             next(err);     
         }
     });
+
     router
-
-
     .route("/delete/:id")
     .delete( async (req, res, next) => {
         try{
@@ -72,6 +71,31 @@ router
             const data = req.body;
             await Word.insertMany(data);
             res.json("Words inserted");
+        }
+        catch(err){
+            next(err);
+        }
+    })
+
+    router
+    .route("/topics")
+    .get( async (req, res, next) => {
+        try{
+            const topics = await Word.distinct("topic");
+            res.json(topics);
+        }
+        catch(err){
+            next(err);
+        }
+    })
+
+    router
+    .route("/bytopic")
+    .post( async (req, res, next) => {
+        try{
+            const topic = req.body.selectedTopic;
+            const words = await Word.find({topic: topic});
+            res.json(words);
         }
         catch(err){
             next(err);
