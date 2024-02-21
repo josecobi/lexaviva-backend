@@ -8,8 +8,6 @@ import insertExampleData from './utilities/insert_example_data.mjs';
 import cors from 'cors';
 
 
-
-
 const app = express();
 const port = process.env.PORT || 3000;
 

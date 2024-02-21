@@ -18,6 +18,10 @@ const wordSchema = new Schema({
         type: String,
         required: true,
     },
+    english_word: {
+        type: String,
+        required: true,
+    },
   });
 
   
