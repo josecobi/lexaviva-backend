@@ -1,9 +1,15 @@
 import express from 'express';
+import cors from 'cors';
+
 import Word from '../models/word.mjs';
 const router = express.Router();
 
+router.use(cors());
+router.use(express.json());
+
 router
     .route ("/")
+    // Get all words
     .get( async (req, res, next) => {
         try{
             const words = await Word.find({});
@@ -13,19 +19,21 @@ router
             next(err);     
         }
     })
+    // Add word to the database
     .post( async (req, res, next) => {
         try{
             console.log(req.body)
             const word = new Word(req.body); 
             await word.save();
             res.json(word);
-    }
+        }
         catch(err){
             next(err);     
         }
     });
 
     router
+    //Delete word by Id
     .route("/delete/:id")
     .delete( async (req, res, next) => {
         try{
@@ -42,8 +50,8 @@ router
     .route("/update/:id")
     .put( async (req, res, next) => {
         try{
-    await Word.findByIdAndUpdate(req.params.id);
-    res.json("Term updated");
+            await Word.findByIdAndUpdate(req.params.id, req.body);
+            res.json("Term updated");
         }
         catch(err){
             next(err);          
@@ -51,6 +59,7 @@ router
     })
 
     router
+    // Delete all words based on their topic
     .route("/deleteAllByTopic/:topic")
     .delete( async (req, res, next) => {
         try{
@@ -65,6 +74,7 @@ router
     })
 
     router
+    // Insert multiple words
     .route("/insertMany")
     .post( async (req, res, next) => {
         try{
@@ -78,6 +88,7 @@ router
     })
 
     router
+    // Get list of topics with no duplicates
     .route("/topics")
     .get( async (req, res, next) => {
         try{
@@ -90,6 +101,7 @@ router
     })
 
     router
+    // Get words by topic
     .route("/bytopic")
     .post( async (req, res, next) => {
         try{
