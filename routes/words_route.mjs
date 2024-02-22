@@ -25,6 +25,7 @@ router
             console.log(req.body)
             const word = new Word(req.body); 
             await word.save();
+            console.log("This is the new created word: ", word)
             res.json(word);
         }
         catch(err){
