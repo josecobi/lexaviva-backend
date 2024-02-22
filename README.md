@@ -2,7 +2,7 @@
 
 ## Spanish Flashcards App
 ### Description
-Link to the FrontEnd README file
+Find information about LexaViva's backend here: https://github.com/josecobi/lexaviva-frontend/blob/main/README.md
 
 The Spanish Flashcards App is a web application designed to facilitate the learning of Spanish words using flashcards. The app provides a user-friendly interface for studying and practicing Spanish vocabulary.
 Backend
