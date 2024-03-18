@@ -6,7 +6,7 @@ import wordRouter from './routes/words_route.mjs';
 import error from "./utilities/error.mjs";
 import insertExampleData from './utilities/insert_example_data.mjs';
 import cors from 'cors';
-const corsConf = {
+export const corsConf = {
   origin: "*",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   preflightContinue: false,
@@ -25,6 +25,7 @@ db.on("open", () => {
 
 // Enable All CORS Requests
 app.use(cors(corsConf));
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use("/words", wordRouter);

@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import corsConf from '../server.mjs';
+import {corsConf} from '../server.mjs';
 
 import Word from '../models/word.mjs';
 const router = express.Router();
