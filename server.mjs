@@ -6,7 +6,12 @@ import wordRouter from './routes/words_route.mjs';
 import error from "./utilities/error.mjs";
 import insertExampleData from './utilities/insert_example_data.mjs';
 import cors from 'cors';
-
+const corsConf = {
+  origin: "*",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+}
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -19,7 +24,7 @@ db.on("open", () => {
 });
 
 // Enable All CORS Requests
-app.use(cors());
+app.use(cors(corsConf));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use("/words", wordRouter);
