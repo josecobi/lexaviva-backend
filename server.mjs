@@ -6,7 +6,9 @@ import wordRouter from './routes/words_route.mjs';
 import error from "./utilities/error.mjs";
 import insertExampleData from './utilities/insert_example_data.mjs';
 import cors from 'cors';
-export const corsConf = {
+import morgan from 'morgan';
+
+const corsConf = {
   origin: "*",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   preflightContinue: false,
@@ -14,6 +16,7 @@ export const corsConf = {
 }
 
 const app = express();
+app.use(morgan('dev'));
 const port = process.env.PORT || 3000;
 
 await mongoose.connect(process.env.ATLAS_URI);
@@ -44,6 +47,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`App listening at http://localhost:${port}`);
 });
-
