@@ -4,20 +4,24 @@ import express from 'express';
 import mongoose from "mongoose";
 import wordRouter from './routes/words_route.mjs';
 import error from "./utilities/error.mjs";
-import insertExampleData from './utilities/insert_example_data.mjs';
-import cors from 'cors';
+// import insertExampleData from './utilities/insert_example_data.mjs';
 import morgan from 'morgan';
+import cors from 'cors';
 
-const corsConf = {
-  origin: "*",
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  preflightContinue: false,
-  optionsSuccessStatus: 204
-}
 
 
 const app = express();
 app.use(morgan('dev'));
+
+const corsOptions = {
+  origin: ['https://lexaviva.onrender.com', 'http://localhost:5174'],
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+};
+
+
+
 const port = process.env.PORT || 3000;
 
 
@@ -28,20 +32,13 @@ db.on("open", () => {
     console.log("Database connected");
 });
 
-// Enable All CORS Requests
-app.use(cors(corsConf));
+app.use(cors(corsOptions));
+
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use("/words", wordRouter);
-//proxy to fix cors error
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'https://lexaviva.onrender.com');
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.header('Access-Control-Allow-Credentials', 'true');
-  next();
-});
+
 // insertExampleData();
 
 // 404 Middleware

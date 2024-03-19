@@ -1,19 +1,6 @@
 import express from 'express';
-import cors from 'cors';
-
-
 import Word from '../models/word.mjs';
-
-const corsConf = {
-    origin: "*",
-    methods: "GET,READ,PUT,PATCH,POST,DELETE",
-    preflightContinue: false,
-    optionsSuccessStatus: 204
-  }
-
 const router = express.Router();
-router.options("*", cors(corsConf));
-router.use(cors(corsConf));
 router.use(express.json());
 
 router
