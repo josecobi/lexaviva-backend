@@ -14,7 +14,10 @@ const corsConf = {
   preflightContinue: false,
   optionsSuccessStatus: 204
 }
-
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
 
 const app = express();
 app.use(morgan('dev'));
