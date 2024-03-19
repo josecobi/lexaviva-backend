@@ -50,6 +50,7 @@ router
         const updatedWord = await Word.findByIdAndUpdate(req.params.id, req.body, { new: true, useFindAndModify: false });
         // 'new: true' option ensures that the updated document is returned
         // 'useFindAndModify: false' option is necessary to use findByIdAndUpdate without deprecation warning
+        console.log({updatedWord})
         res.json(updatedWord);
       } catch (err) {
         next(err);

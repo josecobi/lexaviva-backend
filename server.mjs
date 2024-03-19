@@ -32,7 +32,7 @@ db.on("open", () => {
     console.log("Database connected");
 });
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 
 app.use(express.urlencoded({ extended: true }));
