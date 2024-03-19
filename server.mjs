@@ -32,7 +32,9 @@ db.on("open", () => {
     console.log("Database connected");
 });
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5174'
+}));
 
 
 app.use(express.urlencoded({ extended: true }));
