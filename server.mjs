@@ -14,14 +14,12 @@ const corsConf = {
   preflightContinue: false,
   optionsSuccessStatus: 204
 }
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  next();
-});
+
 
 const app = express();
 app.use(morgan('dev'));
 const port = process.env.PORT || 3000;
+
 
 await mongoose.connect(process.env.ATLAS_URI);
 const db = mongoose.connection;
@@ -36,7 +34,11 @@ app.use(cors(corsConf));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use("/words", wordRouter);
-
+//proxy to fix cors error
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
 // insertExampleData();
 
 // 404 Middleware
