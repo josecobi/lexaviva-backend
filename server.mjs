@@ -15,6 +15,7 @@ const corsConf = {
   optionsSuccessStatus: 204
 }
 
+
 const app = express();
 app.use(morgan('dev'));
 const port = process.env.PORT || 3000;
@@ -49,3 +50,5 @@ app.use((err, req, res, next) => {
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);
 });
+
+

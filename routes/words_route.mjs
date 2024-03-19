@@ -3,9 +3,17 @@ import cors from 'cors';
 
 
 import Word from '../models/word.mjs';
+
+const corsConf = {
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    preflightContinue: false,
+    optionsSuccessStatus: 204
+  }
+
 const router = express.Router();
 
-
+router.use(cors(corsConf));
 router.use(express.json());
 
 router
