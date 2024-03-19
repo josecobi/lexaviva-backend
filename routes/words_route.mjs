@@ -12,7 +12,7 @@ const corsConf = {
   }
 
 const router = express.Router();
-
+router.options("*", cors(corsConf));
 router.use(cors(corsConf));
 router.use(express.json());
 
