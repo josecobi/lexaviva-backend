@@ -7,11 +7,18 @@ import error from "./utilities/error.mjs";
 // import insertExampleData from './utilities/insert_example_data.mjs';
 import morgan from 'morgan';
 import cors from 'cors';
-
-
-
 const app = express();
 app.use(morgan('dev'));
+const port = process.env.PORT || 3000;
+
+
+// Connect to the database
+await mongoose.connect(process.env.ATLAS_URI);
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error:"));
+db.on("open", () => {
+    console.log("Database connected");
+});
 
 const corsOptions = {
   origin: ['https://lexaviva.onrender.com', 'http://localhost:5174'],
@@ -20,21 +27,7 @@ const corsOptions = {
   optionsSuccessStatus: 204
 };
 
-
-
-const port = process.env.PORT || 3000;
-
-
-await mongoose.connect(process.env.ATLAS_URI);
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
-db.on("open", () => {
-    console.log("Database connected");
-});
-
-app.use(cors({
-  origin: 'http://localhost:5174'
-}));
+app.use(cors(corsOptions));
 
 
 app.use(express.urlencoded({ extended: true }));
