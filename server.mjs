@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
 import mongoose from "mongoose";
-import wordRouter from './routes/words_route.mjs';
+import router from './routes/words_route.mjs';
 import error from "./utilities/error.mjs";
 // import insertExampleData from './utilities/insert_example_data.mjs';
 import morgan from 'morgan';
@@ -29,7 +29,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use("/words", wordRouter);
+app.use("/words", router);
 
 // insertExampleData();
 
