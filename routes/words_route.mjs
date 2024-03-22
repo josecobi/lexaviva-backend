@@ -125,4 +125,4 @@ router
         }
     })
 
-export default router;
+export default wordRouter;
