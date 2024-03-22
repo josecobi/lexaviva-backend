@@ -19,17 +19,14 @@ db.on("error", console.error.bind(console, "connection error:"));
 db.on("open", () => {
     console.log("Database connected");
 });
-
 const corsOptions = {
-  origin: ['https://lexaviva.onrender.com', 'https://lexaviva.onrender.com/MyTopics', 'https://lexaviva-backend.vercel.app//words/update/:id'],
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  origin: 'https://lexaviva.onrender.com/', 
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   preflightContinue: false,
   optionsSuccessStatus: 204
-};
-
+}
+// Middleware
 app.use(cors(corsOptions));
-app.options('*', cors())
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use("/words", wordRouter);
