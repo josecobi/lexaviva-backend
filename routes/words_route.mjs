@@ -3,6 +3,7 @@ import Word from '../models/word.mjs';
 const router = express.Router();
 router.use(express.json());
 
+
 router
     .route ("/")
     // Get all words
@@ -45,7 +46,7 @@ router
     // Update term by ID
     router 
     .route("/update/:id")
-    .patch(async (req, res, next) => {
+    .put(async (req, res, next) => {
       try {
         const updatedWord = await Word.findByIdAndUpdate(req.params.id, req.body, { new: true, useFindAndModify: false });
         // 'new: true' option ensures that the updated document is returned

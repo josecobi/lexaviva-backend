@@ -21,14 +21,14 @@ db.on("open", () => {
 });
 
 const corsOptions = {
-  origin: ['https://lexaviva.onrender.com', 'http://localhost:5174'],
+  origin: ['https://lexaviva.onrender.com', 'https://lexaviva.onrender.com/MyTopics', 'https://lexaviva-backend.vercel.app//words/update/:id'],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   preflightContinue: false,
   optionsSuccessStatus: 204
 };
 
 app.use(cors(corsOptions));
-
+app.options('*', cors())
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
