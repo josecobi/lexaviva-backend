@@ -2,27 +2,34 @@ import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
 import mongoose from "mongoose";
-import wordRouter from './routes/words_route.mjs';
+import router from './routes/words_route.mjs';
 import error from "./utilities/error.mjs";
-import insertExampleData from './utilities/insert_example_data.mjs';
+// import insertExampleData from './utilities/insert_example_data.mjs';
+import morgan from 'morgan';
 import cors from 'cors';
-
-
 const app = express();
+app.use(morgan('dev'));
 const port = process.env.PORT || 3000;
 
+
+// Connect to the database
 await mongoose.connect(process.env.ATLAS_URI);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.on("open", () => {
     console.log("Database connected");
 });
-
-// Enable All CORS Requests
-app.use(cors());
+const corsOptions = {
+  origin: 'https://lexaviva.onrender.com', 
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+}
+// Middleware
+app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use("/words", wordRouter);
+app.use("/words", router);
 
 // insertExampleData();
 
@@ -38,6 +45,7 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`App listening at http://localhost:${port}`);
 });
+
 

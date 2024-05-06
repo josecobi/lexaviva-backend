@@ -1,11 +1,8 @@
 import express from 'express';
-import cors from 'cors';
-
 import Word from '../models/word.mjs';
 const router = express.Router();
-
-router.use(cors());
 router.use(express.json());
+
 
 router
     .route ("/")
@@ -47,19 +44,30 @@ router
     })
 
     // Update term by ID
-    router
+    router 
     .route("/update/:id")
-    .put( async (req, res, next) => {
-        try{
-            await Word.findByIdAndUpdate(req.params.id, req.body);
-            const updatedWord = await Word.findById(req.params.id);
-            //Send the updated word back to the client
-            res.json(updatedWord);
-        }
-        catch(err){
-            next(err);          
-        }
-    })
+    .put(async (req, res, next) => {
+      try {
+        const updatedWord = await Word.findByIdAndUpdate(req.params.id, req.body, {new: true} );
+        
+        console.log({updatedWord})
+        res.json(updatedWord);
+      } catch (err) {
+        next(err);
+      }
+    });
+    // .route("/update/:id")
+    // .put( async (req, res, next) => {
+    //     try{
+    //         await Word.findByIdAndUpdate(req.params.id, req.body);
+    //         const updatedWord = await Word.findById(req.params.id);
+    //         //Send the updated word back to the client
+    //         res.json(updatedWord);
+    //     }
+    //     catch(err){
+    //         next(err);          
+    //     }
+    // })
 
     router
     // Delete all words based on their topic
