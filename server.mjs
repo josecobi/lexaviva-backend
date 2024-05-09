@@ -3,10 +3,11 @@ dotenv.config();
 import express from 'express';
 import mongoose from "mongoose";
 import router from './routes/words_route.mjs';
-import error from "./utilities/error.mjs";
 // import insertExampleData from './utilities/insert_example_data.mjs';
 import morgan from 'morgan';
 import cors from 'cors';
+import userRoutes from './routes/userRoutes.mjs';
+import {notFound, errorHandler} from './middleware/error.mjs';
 const app = express();
 app.use(morgan('dev'));
 const port = process.env.PORT || 3000;
@@ -25,25 +26,26 @@ const corsOptions = {
   preflightContinue: false,
   optionsSuccessStatus: 204
 }
+
+
 // Middleware
 app.use(cors(corsOptions));
+
+//In order to be able to get the data from the request body, we need to use the express.json() middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// Routes
 app.use("/words", router);
+app.use("/api/users", userRoutes);
 
 // insertExampleData();
 
-// 404 Middleware
-app.use((req, res, next) => {
-  next(error(404, "Resource Not Found"));
-});
+// Error handling middleware
+app.use(notFound);
+app.use(errorHandler);
 
-// Error-handling middleware.
-app.use((err, req, res, next) => {
-  res.status(err.status || 500);
-  res.json({ error: err.message });
-});
-
+// Start the server
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);
 });
