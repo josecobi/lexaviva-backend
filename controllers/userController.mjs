@@ -9,11 +9,11 @@ import generateToken from '../utilities/generateToken.mjs';
 import asyncHandler from 'express-async-handler';
 
 
-const authUser = asyncHandler((req, res) => {
+const authUser = asyncHandler(async (req, res) => {
     const {email, password} = req.body;
     const user = User.findOne({email});
-
-    if (user) {
+    // check if the user exists and the password is correct
+    if (user && (await user.matchPassword(password))) {
       generateToken(res, user.id);
       res.status(201).json({
         _id: user._id,
