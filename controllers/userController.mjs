@@ -11,7 +11,7 @@ import asyncHandler from 'express-async-handler';
 
 const authUser = asyncHandler(async (req, res) => {
     const {email, password} = req.body;
-    const user = User.findOne({email});
+    const user = await User.findOne({email});
     // check if the user exists and the password is correct
     if (user && (await user.matchPassword(password))) {
       generateToken(res, user.id);
@@ -27,7 +27,6 @@ const authUser = asyncHandler(async (req, res) => {
 
 });
 
-export {authUser};
 
 //Register a new user
 // The route is POST /api/users
@@ -83,4 +82,4 @@ const updateUserProfile = asyncHandler(async(req, res) => {
     res.send('update user profile');
 });
 
-export {registerUser, logoutUser, getUserProfile, updateUserProfile};
+export {registerUser, authUser, logoutUser, getUserProfile, updateUserProfile};
