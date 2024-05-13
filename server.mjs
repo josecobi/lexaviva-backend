@@ -22,7 +22,7 @@ db.on("open", () => {
     console.log("Database connected");
 });
 const corsOptions = {
-  origin: ['https://lexaviva.onrender.com', 'http://localhost:5050'], 
+  origin: ['https://lexaviva.onrender.com', 'http://localhost:5173'], 
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   preflightContinue: false,
   optionsSuccessStatus: 204
