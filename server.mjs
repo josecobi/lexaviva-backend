@@ -8,6 +8,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import userRoutes from './routes/userRoutes.mjs';
 import {notFound, errorHandler} from './middleware/error.mjs';
+import cookieParser from 'cookie-parser';
 const app = express();
 app.use(morgan('dev'));
 const port = process.env.PORT || 3000;
@@ -35,9 +36,13 @@ app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+//Middleware to access the cookies
+app.use(cookieParser());
+
 // Routes
 app.use("/words", router);
 app.use("/api/users", userRoutes);
+
 
 // insertExampleData();
 

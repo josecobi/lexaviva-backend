@@ -8,7 +8,6 @@ import generateToken from '../utilities/generateToken.mjs';
 
 import asyncHandler from 'express-async-handler';
 
-
 const authUser = asyncHandler(async (req, res) => {
     const {email, password} = req.body;
     const user = await User.findOne({email});
