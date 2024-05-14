@@ -56,18 +56,6 @@ router
         next(err);
       }
     });
-    // .route("/update/:id")
-    // .put( async (req, res, next) => {
-    //     try{
-    //         await Word.findByIdAndUpdate(req.params.id, req.body);
-    //         const updatedWord = await Word.findById(req.params.id);
-    //         //Send the updated word back to the client
-    //         res.json(updatedWord);
-    //     }
-    //     catch(err){
-    //         next(err);          
-    //     }
-    // })
 
     router
     // Delete all words based on their topic
