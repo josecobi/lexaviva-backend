@@ -3,7 +3,7 @@ dotenv.config();
 import express from 'express';
 import mongoose from "mongoose";
 import router from './routes/words_route.mjs';
-// import insertExampleData from './utilities/insert_example_data.mjs';
+import { insertSampleData } from './utilities/insert_sample_data.mjs';
 import morgan from 'morgan';
 import cors from 'cors';
 import userRoutes from './routes/userRoutes.mjs';
@@ -12,7 +12,6 @@ import cookieParser from 'cookie-parser';
 const app = express();
 app.use(morgan('dev'));
 const port = process.env.PORT || 3000;
-
 
 // Connect to the database
 await mongoose.connect(process.env.ATLAS_URI);
@@ -44,7 +43,7 @@ app.use("/words", router);
 app.use("/api/users", userRoutes);
 
 
-// insertExampleData();
+// insertSampleData();
 
 // Error handling middleware
 app.use(notFound);
@@ -54,5 +53,4 @@ app.use(errorHandler);
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);
 });
-
 
