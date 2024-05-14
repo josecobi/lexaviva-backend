@@ -1,5 +1,5 @@
 import express from 'express';
-import Word from '../models/word.mjs';
+import Word from '../models/wordModel.mjs';
 const router = express.Router();
 router.use(express.json());
 
