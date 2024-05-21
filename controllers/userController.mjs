@@ -1,7 +1,7 @@
 import User from '../models/userModel.mjs';
 import Word from '../models/wordModel.mjs';
 import generateToken from '../utilities/generateToken.mjs';
-import {copySampleData} from '../utilities/insert_sample_data.mjs';
+import {insertSampleData} from '../utilities/insert_sample_data.mjs';
 
 
 // Authorize user and get token
@@ -52,7 +52,7 @@ const registerUser = asyncHandler(async (req, res) => {
       // if the user is created, send the user data and the token
       if (user) {
         //insert sample data for the new user
-        copySampleData(user._id);       
+        insertSampleData(user._id);       
 
         generateToken(res, user._id);
         res.status(201).json({
@@ -68,7 +68,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
 
 // logout user
-// The route is GET /api/users/logout
+// The route is POST /api/users/logout
 // the access is public
 const logoutUser = asyncHandler(async(req, res) =>{
     res.cookie('jwt', '', {
