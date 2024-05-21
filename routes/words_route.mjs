@@ -91,7 +91,7 @@ router
     .route("/topics")
     .get( async (req, res, next) => {
         try{
-            const topics = await Word.distinct("topic");
+            const topics = await Word.distinct("topic", {user_id: req.query.user_id});
             res.json(topics);
         }
         catch(err){
@@ -102,10 +102,11 @@ router
     router
     // Get words by topic
     .route("/bytopic")
-    .post( async (req, res, next) => {
+    .get( async (req, res, next) => {
         try{
-            const topic = req.body.selectedTopic;
-            const words = await Word.find({topic: topic});
+            const topic = req.query.selectedTopic;
+            const user_id = req.query.user_id;
+            const words = await Word.find({topic: topic, user_id: user_id });
             res.json(words);
         }
         catch(err){
