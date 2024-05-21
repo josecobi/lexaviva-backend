@@ -9,6 +9,8 @@ import cors from 'cors';
 import userRoutes from './routes/userRoutes.mjs';
 import {notFound, errorHandler} from './middleware/error.mjs';
 import cookieParser from 'cookie-parser';
+import User from "./models/userModel.mjs"
+
 const app = express();
 app.use(morgan('dev'));
 const port = process.env.PORT || 3000;
@@ -20,8 +22,10 @@ db.on("error", console.error.bind(console, "connection error:"));
 db.on("open", () => {
     console.log("Database connected");
 });
+
 const corsOptions = {
   origin: ['https://lexaviva.onrender.com', 'http://localhost:5173'], 
+  credentials: true,// allow the browser to include credentials in requests
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   preflightContinue: false,
   optionsSuccessStatus: 204
@@ -43,7 +47,9 @@ app.use("/words", router);
 app.use("/api/users", userRoutes);
 
 
-// insertSampleData();
+// const userExample = await User.findOne({email: "example@example.com"});
+
+//insertSampleData(userExample._id);
 
 // Error handling middleware
 app.use(notFound);
