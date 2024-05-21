@@ -78,7 +78,7 @@ const wordsData = [
     topic: "Basic actions",
     english_word: "to sleep",
     user_id: "exampleId"
-  },
+  }
 ];
 
 
