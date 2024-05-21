@@ -6,7 +6,7 @@ import { authUser, registerUser, logoutUser, getUserProfile, updateUserProfile }
 
 router.post('/', registerUser);
 router.post('/auth', authUser);
-router.get('/logout', logoutUser);
+router.post('/logout', logoutUser);
 router
     .route('/profile')
     .get(protect, getUserProfile) // added protect middleware so it throws and error if we try and access these routes without a token.
