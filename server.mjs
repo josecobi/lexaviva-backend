@@ -25,7 +25,7 @@ db.on("open", () => {
 
 const corsOptions = {
   origin: ['https://lexaviva.onrender.com', 'http://localhost:5173', 'https://lexaviva.vercel.app'], 
-  credentials: true,// allow the browser to include credentials in requests
+  credentials: true,// allow the browser to include credentials in request s
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   preflightContinue: false,
   optionsSuccessStatus: 204
@@ -61,7 +61,7 @@ app.options('*', (req, res) => {
 });
 
 // Routes
-app.use("/words", router);
+app.use("/api/words", router);
 app.use("/api/users", userRoutes);
 
 
