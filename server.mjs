@@ -24,7 +24,7 @@ db.on("open", () => {
 });
 
 const corsOptions = {
-  origin: ['https://lexaviva.onrender.com', 'http://localhost:5173', 'https://lexaviva-backend.vercel.app/'], 
+  origin: ['https://lexaviva.onrender.com', 'http://localhost:5173', 'https://lexaviva.vercel.app'], 
   credentials: true,// allow the browser to include credentials in requests
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   preflightContinue: false,
@@ -57,6 +57,6 @@ app.use(errorHandler);
 
 // Start the server
 app.listen(port, () => {
-  console.log(`App listening at http://localhost:${port}`);
+  console.log(`App listening at ${port}`);
 });
 
