@@ -38,10 +38,8 @@ app.use(cookieParser());
 app.use("/api/words", router);
 app.use("/api/users", userRoutes);
 
-if (process.env.NODE_ENV === 'production') {
-  const __dirname = path.resolve();
-  app.use(express.static("./dist"));
-  app.get('*', (req, res) => res.sendFile('./dist/index.html'));
+if (process.env.NODE_ENV === 'production') {  
+  app.use(express.static("dist"));
 } else {
   app.get('/', (req, res) => res.send('Server is ready'));
 }
