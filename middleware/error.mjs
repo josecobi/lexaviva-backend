@@ -1,9 +1,3 @@
-// export default function error(status, msg) {
-//     var err = new Error(msg);
-//     err.status = status;
-//     return err;
-//   }
-
 const notFound = (req, res, next) => {
   const error = new Error(`Not Found - ${req.originalUrl}`);
   res.status(404);
