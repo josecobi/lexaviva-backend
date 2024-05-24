@@ -38,9 +38,11 @@ app.use(cookieParser());
 app.use("/api/words", router);
 app.use("/api/users", userRoutes);
 
- 
-app.use(express.static("dist"));
-
+if (process.env.NODE_ENV === 'production') {  
+  app.use(express.static("dist"));
+} else {
+  app.get('/', (req, res) => res.send('Server is ready'));
+}
 // const userExample = await User.findOne({email: "example@example.com"});
 
 //insertSampleData(userExample._id);
