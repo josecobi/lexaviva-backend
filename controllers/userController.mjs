@@ -2,6 +2,7 @@ import User from '../models/userModel.mjs';
 import Word from '../models/wordModel.mjs';
 import generateToken from '../utilities/generateToken.mjs';
 import {insertSampleData} from '../utilities/insert_sample_data.mjs';
+import { validateUser } from '../utilities/userValidation.mjs';
 
 
 // Authorize user and get token
@@ -33,7 +34,13 @@ const authUser = asyncHandler(async (req, res) => {
 // The route is POST /api/users
 // the access is public
 const registerUser = asyncHandler(async (req, res) => {
+      const { error } = validateUser(req.body);
+      if (error) {
+        return res.status(400).send({ message: error.details[0].message });
+      }
       const { name, email, password } = req.body;
+      validateUser(req.body)
+
       // check if the user exists
       const userExists = await User.findOne({ email });
       // if the user exists, throw an error
