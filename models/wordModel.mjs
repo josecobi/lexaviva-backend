@@ -32,6 +32,6 @@ const wordSchema = new Schema({
   const Word = model('Word', wordSchema);
 
   Word.schema.index({ topic: 1 });
-  // Word.schema.index({ user_id: 1 });d
+  Word.schema.index({ user_id: 1 });
 
   export default Word
