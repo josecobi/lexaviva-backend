@@ -1,5 +1,4 @@
 import User from '../models/userModel.mjs';
-import Word from '../models/wordModel.mjs';
 import generateToken from '../utilities/generateToken.mjs';
 import {insertSampleData} from '../utilities/insert_sample_data.mjs';
 import { validateUser } from '../utilities/userValidation.mjs';

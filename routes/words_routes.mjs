@@ -20,7 +20,7 @@ router
     .post( async (req, res, next) => {
         try{
             console.log(req.body)
-            const word = new Word(req.body); 
+            const word = new Word(req.body);
             await word.save();
             console.log("This is the new created word: ", word)
             res.json(word);
@@ -87,7 +87,8 @@ router
     })
 
     router
-    // Get list of topics with no duplicates
+    // Get list of topics with no duplicates. Topic being case insensitive
+    
     .route("/topics")
     .get( async (req, res, next) => {
         try{
@@ -100,18 +101,20 @@ router
     })
 
     router
-    // Get words by topic
+    // Get words by topic. Topic being case insensitive to avoid duplicate
     .route("/bytopic")
     .get( async (req, res, next) => {
         try{
             const topic = req.query.selectedTopic;
             const user_id = req.query.user_id;
-            const words = await Word.find({topic: topic, user_id: user_id });
+            const words = await Word.find({topic: { $regex: new RegExp(topic, "i") }, user_id: user_id });
             res.json(words);
         }
         catch(err){
             next(err);
         }
     })
+    
+
 
 export default router;
