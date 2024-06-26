@@ -51,7 +51,7 @@ router
         const updatedWord = await Word.findByIdAndUpdate(req.params.id, req.body, {new: true} );
         
         console.log({updatedWord})
-        res.json(updatedWord);
+        res.status(200).send(`Words "${updatedWord}" updated successfully.`);
       } catch (err) {
         next(err);
       }
@@ -102,18 +102,40 @@ router
 
     router
     // Get words by topic. Topic being case insensitive to avoid duplicate
-    .route("/bytopic")
+    .route("/topicsByUser")
     .get( async (req, res, next) => {
         try{
             const topic = req.query.selectedTopic;
             const user_id = req.query.user_id;
-            const words = await Word.find({topic: { $regex: new RegExp(topic, "i") }, user_id: user_id });
-            res.json(words);
+            // const words = await Word.find({topic: { $regex: new RegExp(topic, "i") }, user_id: user_id });
+            const topics = await Word.distinct("topic", {user_id: user_id});
+            // Check if topic is in the list of topics
+            if(topics.some(t => new RegExp(`^${topic}$`, 'i').test(t))){
+                res.json(topic);
+            }
+            else{
+                res.json({ message: `Topic "${topic}" not found`, data: [] });
+            }
         }
         catch(err){
             next(err);
         }
     })
+    
+    router
+    .route("/byTopic")
+    .get( async (req, res, next) => {
+        try{
+            const topic = req.query.selectedTopic;
+            const user_id = req.query.user_id;
+            const words = await Word.find({topic:  { $regex: new RegExp(`^${topic}$`, "i") } , user_id: user_id });
+            res.json(words);
+        } 
+        catch(err){
+            next(err);
+        }
+    })
+
     
 
 
