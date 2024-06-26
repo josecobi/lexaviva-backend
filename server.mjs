@@ -2,12 +2,13 @@ import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
 import mongoose from "mongoose";
-import router from './routes/words_routes.mjs';
+import wordRoutes from './routes/words_routes.mjs';
 import { insertSampleData } from './utilities/insert_sample_data.mjs';
 import morgan from 'morgan';
 import userRoutes from './routes/userRoutes.mjs';
 import {notFound, errorHandler} from './middleware/error.mjs';
 import cookieParser from 'cookie-parser';
+import freepikRoutes from './routes/freepikRoutes.mjs';
 // import imageStoreRoutes from "./routes/imageStoreRoutes.mjs"
 
 
@@ -35,9 +36,11 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Routes
-app.use("/api/words", router);
+app.use("/api/freepik", freepikRoutes);
+app.use("/api/words", wordRoutes);
 app.use("/api/users", userRoutes);
 // app.use("/api/images", imageStoreRoutes);
+
 
 if (process.env.NODE_ENV === 'production') {  
   app.use(express.static("dist"));
