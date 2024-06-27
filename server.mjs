@@ -9,8 +9,8 @@ import userRoutes from './routes/userRoutes.mjs';
 import {notFound, errorHandler} from './middleware/error.mjs';
 import cookieParser from 'cookie-parser';
 import freepikRoutes from './routes/freepikRoutes.mjs';
-// import imageStoreRoutes from "./routes/imageStoreRoutes.mjs"
-
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const app = express();
 
@@ -26,7 +26,6 @@ db.on("open", () => {
 
 
 // Middleware
-// app.use(cors(corsOptions));
 app.use(morgan('dev'));
 //In order to be able to get the data from the request body, we need to use the express.json() middleware
 app.use(express.urlencoded({ extended: true }));
@@ -41,9 +40,18 @@ app.use("/api/words", wordRoutes);
 app.use("/api/users", userRoutes);
 // app.use("/api/images", imageStoreRoutes);
 
+// Get the directory name of the current module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-if (process.env.NODE_ENV === 'production') {  
-  app.use(express.static("dist"));
+if (process.env.NODE_ENV === 'production') {
+  // Serve static files from the React app
+  app.use(express.static(path.join(__dirname, 'dist')));
+
+  // Catch-all handler to serve React's index.html file for any request that isn't an API call
+  app.get('*', (req, res) => {
+      res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  });
 } else {
   app.get('/', (req, res) => res.send('Server is ready'));
 }
