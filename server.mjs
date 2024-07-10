@@ -6,6 +6,7 @@ import wordRoutes from './routes/words_routes.mjs';
 import { insertSampleData } from './utilities/insert_sample_data.mjs';
 import morgan from 'morgan';
 import userRoutes from './routes/userRoutes.mjs';
+import demoRoutes from './routes/demoRoutes.mjs';
 import {notFound, errorHandler} from './middleware/error.mjs';
 import cookieParser from 'cookie-parser';
 import freepikRoutes from './routes/freepikRoutes.mjs';
@@ -38,6 +39,7 @@ app.use(cookieParser());
 app.use("/api/freepik", freepikRoutes);
 app.use("/api/words", wordRoutes);
 app.use("/api/users", userRoutes);
+app.use("/demo", demoRoutes);
 // app.use("/api/images", imageStoreRoutes);
 
 // Get the directory name of the current module
